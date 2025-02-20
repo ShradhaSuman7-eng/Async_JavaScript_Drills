@@ -27,7 +27,7 @@ function createDirectory(callback) {
 
 const randomNumber = Math.floor(Math.random() * 10) + 1;
 
-function addingFiles(callback) {
+function addFiles(callback) {
   console.log("Adding files...");
   for (let i = 0; i < randomNumber; i++) {
     const filePath = path.join(folderName, `file${i + 1}.json`);
@@ -46,7 +46,7 @@ function addingFiles(callback) {
   }, 3000);
 }
 
-function deletingFiles(callback) {
+function deleteFiles(callback) {
   console.log("Deleting files...");
 
   for (let i = 0; i < randomNumber; i++) {

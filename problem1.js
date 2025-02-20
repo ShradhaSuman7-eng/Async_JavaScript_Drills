@@ -13,16 +13,14 @@ const folderName = "FOLDER";
 
 function createDirectory(callback) {
   console.log("Creating Directory...");
-  fs.mkdir(folderName, (err) => {
+  fs.mkdir(folderName, { recursive: true }, (err) => {
     if (err) {
       console.log("Error creating directory:", err);
     } else {
       console.log("Directory created.");
+      callback();
     }
   });
-  setTimeout(function () {
-    callback();
-  }, 3000);
 }
 
 const randomNumber = Math.floor(Math.random() * 10) + 1;
@@ -37,44 +35,16 @@ function addFiles(callback) {
         console.error("Error writing file:", err);
       } else {
         console.log(`File file${i + 1}.json created.`);
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(`Error deleting ${filePath}:`, err);
+          } else {
+            console.log(`Deleted file: file${i + 1}.json`);
+          }
+        });
       }
     });
   }
-
-  setTimeout(function () {
-    callback();
-  }, 3000);
 }
 
-function deleteFiles(callback) {
-  console.log("Deleting files...");
-
-  for (let i = 0; i < randomNumber; i++) {
-    const filePath = path.join(folderName, `file${i + 1}.json`);
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error(`Error deleting ${filePath}:`, err);
-      } else {
-        console.log(`Deleted file: file${i + 1}.json`);
-      }
-    });
-  }
-
-  setTimeout(function () {
-    callback();
-  }, 3000);
-}
-
-function deleteDirectory(callback) {
-  console.log("Deleting Directory..");
-  fs.rmdir(folderName, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Directory deleted");
-    }
-  });
-}
-
-
-module.exports={createDirectory,addFiles,deleteFiles,deleteDirectory}
+module.exports = { createDirectory, addFiles };

@@ -1,11 +1,20 @@
-const {createFileLipsum,readFilesLipsum,convertToUpperCase,LowerCaseConversion,deleteFiles}=require("../problem2")
-
+const {
+  createFileLipsum,
+  readFilesLipsum,
+  convertToUpperCase,
+  LowerCaseConversion,
+  deleteFiles,
+  sortFileContent,
+  
+} = require("../problem2");
 
 createFileLipsum(() => {
   readFilesLipsum(() => {
     convertToUpperCase(() => {
       LowerCaseConversion(() => {
-        deleteFiles();
+        sortFileContent(() => {
+          deleteFiles();
+        });
       });
     });
   });

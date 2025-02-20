@@ -12,16 +12,27 @@ Using callbacks and the fs module's asynchronous functions, do the following:
 const fs = require("fs");
 
 function createFileLipsum(callback) {
-  fs.writeFile("lipsum.txt", "I am Shradha Suman", (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("File Created");
-      setTimeout(function () {
-        callback();
-      }, 3000);
+  fs.writeFile(
+    "lipsum.txt",
+    `Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+Rerum numquam ab aliquid sunt veniam officiis maiores? Voluptatum eum numquam debitis,
+ ea impedit unde sit ullam dolores? Facilis pariatur nesciunt minus.
+Mollitia, quasi voluptatibus, officia beatae voluptatem ea maxime deserunt 
+accusantium hic nobis facere rem consequatur eum asperiores doloribus! 
+Error laborum exercitationem dolore ducimus animi, placeat consequuntur reprehenderit esse eveniet commodi.
+Doloremque numquam, sapiente quisquam minus ipsa sequi reiciendis tempore,
+ repellendus, quas architecto deleniti beatae voluptate iste error illum voluptatum. Vel assumenda quam eligendi reiciendis, accusamus consectetur sint placeat quibusdam? Cupiditate!`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("lipsum.txt Created");
+        setTimeout(function () {
+          callback();
+        }, 3000);
+      }
     }
-  });
+  );
 }
 
 function readFilesLipsum(callback) {
@@ -82,6 +93,30 @@ function LowerCaseConversion(callback) {
   });
 }
 
+function sortFileContent(callback) {
+  fs.readFile("lower.txt", "utf-8", (err, data) => {
+    if (err) {
+      console.log("Error reading file:", err);
+      return;
+    }
+
+    let newData = data
+      .split("\n")
+      .sort();
+
+    fs.writeFile("filenames.txt", newData.join("\n"), "utf8", (err) => {
+      if (err) {
+        console.log("Error writing file:", err);
+        return;
+      }
+      console.log("Sorted content saved as filenames.txt");
+      setTimeout(function () {
+        callback();
+      }, 3000);
+    });
+  });
+}
+
 function deleteFiles(callback) {
   fs.writeFile("filenames.txt", "I am Shradha Suman", (err) => {
     if (err) {
@@ -97,7 +132,12 @@ function deleteFiles(callback) {
       return;
     }
 
-    const filesToDelete = ["lipsum.txt", "upper.txt", "lower.txt","filenames.txt"];
+    const filesToDelete = [
+      "lipsum.txt",
+      "upper.txt",
+      "lower.txt",
+      "filenames.txt",
+    ];
 
     filesToDelete.forEach((file) => {
       fs.unlink(file, (err) => {
@@ -116,5 +156,6 @@ module.exports = {
   readFilesLipsum,
   convertToUpperCase,
   LowerCaseConversion,
+  sortFileContent,
   deleteFiles,
 };

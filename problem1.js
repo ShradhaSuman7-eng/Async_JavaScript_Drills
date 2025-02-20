@@ -77,4 +77,4 @@ function deleteDirectory(callback) {
 }
 
 
-module.exports={createDirectory,addingFiles,deletingFiles,deleteDirectory}
+module.exports={createDirectory,addFiles,deleteFiles,deleteDirectory}

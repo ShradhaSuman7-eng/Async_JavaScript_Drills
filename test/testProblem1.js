@@ -1,9 +1,9 @@
-const { createDirectory, addingFiles, deletingFiles, deleteDirectory } = require("../problem1.js");
+const { createDirectory, addFiles, deleteFiles, deleteDirectory } = require("../problem1.js");
 
 
 createDirectory(() => {
-  addingFiles(() => {
-    deletingFiles(() => {
+  addFiles(() => {
+    deleteFiles(() => {
       deleteDirectory();
     });
   });
